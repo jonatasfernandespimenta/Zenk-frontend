@@ -13,8 +13,8 @@ interface ILog {
 export default function Log({ data, date, source }: ILog) {
   const mappedData = useMemo(
     () =>
-      getKeysAndValuesFromJSON(data).map(({ key, value }) => (
-        <p>
+      getKeysAndValuesFromJSON(data).map(({ key, value }, idx) => (
+        <div key={idx}>
           {typeof value === "object" ? (
             <Collapsable.Root>
               <Collapsable.Header>
@@ -24,8 +24,8 @@ export default function Log({ data, date, source }: ILog) {
 
               <Collapsable.Content>
                 <>
-                  {getKeysAndValuesFromJSON(value).map(({ key, value }) => (
-                    <p>
+                  {getKeysAndValuesFromJSON(value).map(({ key, value }, idx) => (
+                    <p key={idx * 10}>
                       <span className="text-primary">"{key.toString()}": </span>"{value.toString()}"
                     </p>
                   ))}
@@ -33,11 +33,11 @@ export default function Log({ data, date, source }: ILog) {
               </Collapsable.Content>
             </Collapsable.Root>
           ) : (
-            <>
+            <p>
               <span className="text-primary">"{key.toString()}": </span>"{value.toString()}"
-            </>
+            </p>
           )}
-        </p>
+        </div>
       )),
     [data]
   );

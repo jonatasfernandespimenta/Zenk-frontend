@@ -11,7 +11,7 @@ export default function LogsScreen({ data }: ILogsScreen) {
   return (
     <div className="p-10">
       {data.map((log) => (
-        <Log date={log.createdAt} source={log.source} data={log.data} />
+        <Log key={log.id} date={log.createdAt} source={log.source} data={log.data} />
       ))}
     </div>
   );
