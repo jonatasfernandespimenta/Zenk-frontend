@@ -18,7 +18,7 @@ export default function Log({ data, date, source }: ILog) {
           {typeof value === "object" ? (
             <Collapsable.Root>
               <Collapsable.Header>
-                <p className="text-primary">"data"</p>
+                <p className="text-primary">&ldquo;data&ldquo;</p>
                 <p className="text-[#adadad90]">{JSON.stringify(value)}</p>
               </Collapsable.Header>
 
@@ -26,7 +26,8 @@ export default function Log({ data, date, source }: ILog) {
                 <>
                   {getKeysAndValuesFromJSON(value).map(({ key, value }, idx) => (
                     <p key={idx * 10}>
-                      <span className="text-primary">"{key.toString()}": </span>"{value.toString()}"
+                      <span className="text-primary">&ldquo;{key.toString()}&ldquo;: </span>&ldquo;{value?.toString()}
+                      &ldquo;
                     </p>
                   ))}
                 </>
@@ -34,7 +35,7 @@ export default function Log({ data, date, source }: ILog) {
             </Collapsable.Root>
           ) : (
             <p>
-              <span className="text-primary">"{key.toString()}": </span>"{value.toString()}"
+              <span className="text-primary">&ldquo;{key.toString()}&ldquo;: </span>&ldquo;{value.toString()}&ldquo;
             </p>
           )}
         </div>

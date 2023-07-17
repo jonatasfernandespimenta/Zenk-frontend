@@ -5,8 +5,23 @@ const zenkApi = axios.create({
   baseURL: "http://localhost:3333",
 });
 
-export async function getLogs(source?: string | null): Promise<ILog[]> {
-  const response = await zenkApi.get(source ? `/logs?source=${source}` : "/logs");
+interface IGetLogRequest {
+  source?: string | null;
+  page?: number | null;
+}
+
+export async function getLogs({ page, source }: IGetLogRequest): Promise<ILog[]> {
+  let queryParams = "";
+
+  if (source) {
+    queryParams += `source=${source}`;
+  }
+
+  if (page) {
+    queryParams += queryParams ? `&page=${page}` : `page=${page}`;
+  }
+
+  const response = await zenkApi.get(`/logs${queryParams ? `?${queryParams}` : ""}`);
 
   const logs = response.data.logs;
 
